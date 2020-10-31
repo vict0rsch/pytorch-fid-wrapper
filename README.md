@@ -4,8 +4,10 @@ A simple wrapper around @mseitzer's great pytorch-fid work.
 ```python
 import  pytorch_fid_wrapper as pfw
 
-# compute real_m and real_s only once, they will not change
-# during training
+# set pfw's configuration with your parameters
+pfw.set_config(batch_size=BATCH_SIZE, dims=DIMS, device=DEVICE)
+
+# compute real_m and real_s only once, they will not change during training
 real_images = my_validation_data # N x C x H x W tensor
 real_m, real_s = pfw.compute_real_val_stats(real_images)
 
@@ -13,7 +15,7 @@ real_m, real_s = pfw.compute_real_val_stats(real_images)
 fake_images = my_model.compute_fake_images() # N x C x H x W tensor
 
 # compute the fid score
-val_fid, real_m, real_s = pfw.calculate_val_fid(fake_images, real_m, real_s)
+val_fid = pfw.calculate_val_fid(fake_images, real_m, real_s)
 ```
 
 Remember to cite their work if using the present wrapper or their code directly:
