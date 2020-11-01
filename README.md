@@ -25,6 +25,8 @@ new_real_data = some_other_validation_data # N x C x H x W tensor
 val_fid = pfw.fid(fake_images, new_real_data)
 ```
 
+Please refer to [**pytorch-fid**](https://github.com/mseitzer/pytorch-fid) for any documentation on the InceptionV3 implementation or FID calculations.
+
 ## Config
 
 `pfw.get_stats(...)` and `pfw.fid(...)` need to know what block of the InceptionV3 model to use (`dims`), on what device to compute inference (`device`) and with what batch size (`batch_size`).
