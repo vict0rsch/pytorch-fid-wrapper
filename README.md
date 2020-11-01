@@ -3,6 +3,20 @@ A simple wrapper around [@mseitzer](https://github.com/mseitzer)'s great [**pyto
 
 The goal is to compute the Fréchet Inception Distance between two sets of images *in-memory* using PyTorch.
 
+## Installation
+
+```
+pip install pytorch-fid-wrapper
+```
+
+Requires (and will install) (as `pytorch-fid`):
+  * Python >= 3.5
+  * Pillow
+  * Numpy
+  * Scipy
+  * Torch
+  * Torchvision
+
 ## Usage
 
 ```python
