@@ -1,4 +1,4 @@
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 from importlib import import_module
 from pathlib import Path
 from pytorch_fid_wrapper import params

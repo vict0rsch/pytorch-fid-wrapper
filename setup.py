@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pytorch-fid-wrapper",
-    version="0.0.1",
+    version="0.0.2",
     author="Victor Schmidt",
     author_email="not.an.address@yes.com",
     description=(
