@@ -5,6 +5,8 @@ The goal is to compute the Fréchet Inception Distance between two sets of image
 
 ## Installation
 
+[![PyPI](https://img.shields.io/pypi/v/pytorch-fid-wrapper.svg)](https://pypi.org/project/pytorch-fid/)
+
 ```
 pip install pytorch-fid-wrapper
 ```
@@ -60,7 +62,7 @@ Default values are in `pfw.params`: `batch_size = 50`, `dims = 2048` and `device
 
 ## Recognition
 
-Remember to cite their work if using [`pytorch-fid-wrapper`](https://github.com/vict0rsch/pytorch-fid-wrapper) or [**pytorch-fid**](https://github.com/mseitzer/pytorch-fid):
+Remember to cite their work if using [`pytorch-fid-wrapper`](https://github.com/vict0rsch/pytorch-fid-wrapper) or [`pytorch-fid`](https://github.com/mseitzer/pytorch-fid):
 
 ```
 @misc{Seitzer2020FID,
