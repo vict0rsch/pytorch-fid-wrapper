@@ -27,7 +27,7 @@ val_fid = pfw.fid(fake_images, new_real_data)
 
 ## Config
 
-`pfw.get_stats(...)` and `pfw.fid(...)` need to be know what block of the InceptionV3 model to use (`dims`), on what device to compute inference (`device`) and with what batch size (`batch_size`).
+`pfw.get_stats(...)` and `pfw.fid(...)` need to know what block of the InceptionV3 model to use (`dims`), on what device to compute inference (`device`) and with what batch size (`batch_size`).
 
 Default values are in `pfw.params`: `batch_size = 50`, `dims = 2048` and `device = "cpu"`. If you want to override those, you have to options:
 
@@ -38,11 +38,13 @@ Default values are in `pfw.params`: `batch_size = 50`, `dims = 2048` and `device
 2/ override the params globally with `pfw.set_config` and set them for all future calls without passing parameters again. For instance:
   ```python
   pfw.set_config(batch_size=100, dims=768, device="cuda:0")
+  ...
+  pfw.fid(fake_images, new_real_data)
   ```
 
 ## Recognition
 
-Remember to cite their work if using [`pytorch-fid-wrapper`](https://github.com/vict0rsch/pytorch-fid-wrapper) or their code directly:
+Remember to cite their work if using [`pytorch-fid-wrapper`](https://github.com/vict0rsch/pytorch-fid-wrapper) or [**pytorch-fid**](https://github.com/mseitzer/pytorch-fid):
 
 ```
 @misc{Seitzer2020FID,
