@@ -1,5 +1,5 @@
 import setuptools
-
+import pytorch_fid_wrapper
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pytorch-fid-wrapper",
-    version="0.0.2",
+    version=pytorch_fid_wrapper.__version__,
     author="Victor Schmidt",
     author_email="not.an.address@yes.com",
     description=(
