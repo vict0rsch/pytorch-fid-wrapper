@@ -62,7 +62,8 @@ def get_activations(images, model, batch_size=50, dims=2048, device="cpu"):
             retained to match the original FID score implementation. Defaults to 50.
         dims (int, optional): Dimensionality of features returned by Inception.
             Defaults to 2048.
-        device (str, optional): Device to run calculations. Defaults to "cpu".
+        device (str | torch.device, optional): Device to run calculations.
+            Defaults to "cpu".
 
     Returns:
         np.ndarray: A numpy array of dimension (num images, dims) that contains the
@@ -181,10 +182,11 @@ def calculate_activation_statistics(
             Defaults to 50.
         dims (int, optional): Dimensionality of features returned by Inception.
             Defaults to 2048.
-        device (str, optional): Device to run calculations. Defaults to "cpu".
+        device (str | torch.device, optional): Device to run calculations.
+            Defaults to "cpu".
 
     Returns:
-        tuple: (mu, sigma)
+        tuple(np.ndarray, np.ndarray): (mu, sigma)
             mu => The mean over samples of the activations of the pool_3 layer of
                 the inception model.
             sigma => The covariance matrix of the activations of the pool_3 layer of
@@ -197,6 +199,35 @@ def calculate_activation_statistics(
 
 
 def get_stats(images, model=None, batch_size=None, dims=None, device=None):
+    """
+    Get the InceptionV3 activation statistics (mu, sigma) for a batch of `images`.
+
+    If `model` (InceptionV3) is not provided, it will be instanciated according
+    to `dims`.
+
+    Other arguments are optional and will be inherited from `pfw.params` if not
+    provided. Use `pfw.set_config` to change those params globally for future calls
+
+
+    Args:
+        images (torch.Tensor): The images to compute the statistics for. Must be
+            N x C x H x W
+        model (torch.nn.Module, optional): InceptionV3 model. Defaults to None.
+        batch_size (int, optional): Inception inference batch size.
+            Will use `pfw.params.batch_size` if not provided. Defaults to None.
+        dims (int, optional): which inception block to select. See
+            InceptionV3.BLOCK_INDEX_BY_DIM. Will use pfw.params.dims if not provided.
+            Defaults to None.
+        device (str | torch.device, optional): PyTorch device for inception inference.
+            Will use pfw.params.device if not provided. Defaults to None.
+
+    Returns:
+        tuple(np.ndarray, np.ndarray): (mu, sigma)
+            mu => The mean over samples of the activations of the pool_3 layer of
+                the inception model.
+            sigma => The covariance matrix of the activations of the pool_3 layer of
+                the inception model.
+    """
     if batch_size is None:
         batch_size = pfw_params.batch_size
     if dims is None:
@@ -248,7 +279,7 @@ def fid(
         dims (int, optional): which inception block to select.
             See InceptionV3.BLOCK_INDEX_BY_DIM. Will use pfw.params.dims
             if not provided. Defaults to None.
-        device (any, optional): PyTorch device for inception inference.
+        device (str | torch.device, optional): PyTorch device for inception inference.
             Will use pfw.params.device if not provided. Defaults to None.
 
     Returns:
