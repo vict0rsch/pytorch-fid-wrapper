@@ -57,7 +57,7 @@ Please refer to [**pytorch-fid**](https://github.com/mseitzer/pytorch-fid) for a
 
 `pfw.get_stats(...)` and `pfw.fid(...)` need to know what block of the InceptionV3 model to use (`dims`), on what device to compute inference (`device`) and with what batch size (`batch_size`).
 
-Default values are in `pfw.params`: `batch_size = 50`, `dims = 2048` and `device = "cpu"`. If you want to override those, you have to options:
+Default values are in `pfw.params`: `batch_size = 50`, `dims = 2048` and `device = "cpu"`. If you want to override those, you have two options:
 
 1/ override any of these parameters in the function calls. For instance:
   ```python
