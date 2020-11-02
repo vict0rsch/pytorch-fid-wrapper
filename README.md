@@ -24,22 +24,32 @@ Requires (and will install) (as `pytorch-fid`):
 ```python
 import  pytorch_fid_wrapper as pfw
 
+# ---------------------------
+# -----  Initial Setup  -----
+# ---------------------------
+
 # Optional: set pfw's configuration with your parameters once and for all
 pfw.set_config(batch_size=BATCH_SIZE, dims=DIMS, device=DEVICE)
 
-# compute real_m and real_s only once, they will not change during training
-real_images = my_validation_data # N x C x H x W tensor
+# Optional: compute real_m and real_s only once, they will not change during training
 real_m, real_s = pfw.get_stats(real_images)
 
-# get the fake images your model currently generates
-fake_images = my_model.compute_fake_images() # N x C x H x W tensor
+...
 
-# compute the fid score
-val_fid = pfw.fid(fake_images, real_m, real_s)
+# -------------------------------------
+# -----  Computing the FID Score  -----
+# -------------------------------------
+
+val_fid = pfw.fid(fake_images, real_m=real_m, real_s=real_s) # (1)
+
 # OR
-new_real_data = some_other_validation_data # N x C x H x W tensor
-val_fid = pfw.fid(fake_images, new_real_data)
+
+val_fid = pfw.fid(fake_images, real_images=new_real_images) # (2)
 ```
+
+All `_images` variables in the example above are `torch.Tensor` instances with shape `N x C x H x W`. They will be sent to the appropriate device depending on what you ask for (see [Config](#config)).
+
+To compute the FID score between your fake images and some real dataset, you can **either** re-use pre-computed stats `real_m`, `real_s` at each validation stage `(1)`, **or** provide another dataset for which the stats will be computed (in addition to your fake images' which are computed in both scenarios) `(2)`. Score is computed in `pfw.fid_score.calculate_frechet_distance(...)`, following [`pytorch-fid`](https://github.com/mseitzer/pytorch-fid)'s implementation.
 
 Please refer to [**pytorch-fid**](https://github.com/mseitzer/pytorch-fid) for any documentation on the InceptionV3 implementation or FID calculations.
 
